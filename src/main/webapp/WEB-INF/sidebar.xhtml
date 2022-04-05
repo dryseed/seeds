@@ -1,0 +1,156 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:pc="http://primefaces.org/california">
+
+    <div class="layout-sidebar">
+        <div class="sidebar-scroll-content">
+            <h:form id="sidebarProfileForm">
+                <ui:fragment rendered="true">
+                    <div class="user-profile">
+                        <a id="sidebar-profile-button" href="#">
+                            <p:graphicImage name="images/avatar.png" library="california-layout"/>
+                            <span class="sidebar-profile-name">Pauline Harrell</span>
+                            <span class="sidebar-profile-role">Administrator</span>
+                        </a>
+                        <ul id="sidebar-usermenu" class="usermenu">
+                            <li>
+                                <a href="#">
+                                    <i class="pi pi-fw pi-user"/>
+                                    <span class="topbar-item-name">Profile</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="pi pi-fw pi-cog"/>
+                                    <span class="topbar-item-name">Settings</span>
+                                    <i class="layout-menuitem-toggler pi pi-fw pi-angle-down"/>
+                                </a>
+                                <ul>
+                                    <li role="menuitem">
+                                        <a href="#">
+                                            <i class="pi pi-fw pi-palette"/>
+                                            <span>Change</span>
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="#">
+                                            <i class="pi pi-fw pi-star"/>
+                                            <span>Favorites</span>
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="#">
+                                            <i class="pi pi-fw pi-lock"/>
+                                            <span>Lock Screen</span>
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="#">
+                                            <i class="pi pi-fw pi-image"/>
+                                            <span>Wallpaper</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="pi pi-fw pi-envelope"/>
+                                    <span class="topbar-item-name">Messages</span>
+                                    <i class="layout-menuitem-toggler pi pi-fw pi-angle-down"/>
+                                </a>
+                                <ul>
+                                    <li role="menuitem">
+                                        <a href="#" class="topbar-message">
+                                            <p:graphicImage name="images/avatar1.png" library="california-layout"
+                                                            width="25"/>
+                                            <span>Give me a call</span>
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="#" class="topbar-message">
+                                            <p:graphicImage name="images/avatar2.png" library="california-layout"
+                                                            width="25"/>
+                                            <span>Sales reports attached</span>
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="#" class="topbar-message">
+                                            <p:graphicImage name="images/avatar3.png" library="california-layout"
+                                                            width="25"/>
+                                            <span>About your invoice</span>
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="#" class="topbar-message">
+                                            <p:graphicImage name="images/avatar2.png" library="california-layout"
+                                                            width="25"/>
+                                            <span>Meeting today at 10pm</span>
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="#" class="topbar-message">
+                                            <p:graphicImage name="images/avatar4.png" library="california-layout"
+                                                            width="25"/>
+                                            <span>Out of office</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="pi pi-fw pi-bell"/>
+                                    <span class="topbar-item-name">Notifications</span>
+                                    <i class="layout-menuitem-toggler pi pi-fw pi-angle-down"/>
+                                </a>
+                                <ul>
+                                    <li role="menuitem">
+                                        <a href="#">
+                                            <i class="pi pi-fw pi-sliders-h"/>
+                                            <span>Pending tasks</span>
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="#">
+                                            <i class="pi pi-fw pi-calendar"/>
+                                            <span>Meeting today</span>
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="#">
+                                            <i class="pi pi-fw pi-download"/>
+                                            <span>Download</span>
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="#">
+                                            <i class="pi pi-fw pi-ticket"/>
+                                            <span>Book flight</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </ui:fragment>
+            </h:form>
+            <h:form id="menuform">
+                <pc:menu widgetVar="CaliforniaMenuWidget">
+                    <p:menuitem id="om_dashboard" value="管理センター" icon="pi pi-fw pi-home" outcome="/index"/>
+                    <p:submenu id="om_components" label="一斉発信" icon="pi pi-fw pi-envelope" styleClass="text-badge">
+                        <f:attribute name="badge" value="New"/>
+                        <p:menuitem id="om_emailsent" value="発信" icon="pi pi-fw pi-send" outcome="/emailsending/send" />
+                        <p:menuitem id="om_addressmanager" value="メール管理" icon="pi pi-fw pi-id-card" outcome="/emailsending/edit" />
+                    </p:submenu>
+                    <p:submenu id="om_default" label="管理者管理" icon="pi pi-fw pi-briefcase" >
+                        <p:menuitem id="om_user" value="管理者情報管理" icon="pi pi-fw pi-pencil"/>
+                    </p:submenu>
+                </pc:menu>
+            </h:form>
+        </div>
+    </div>
+
+</ui:composition>

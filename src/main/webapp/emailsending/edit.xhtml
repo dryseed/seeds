@@ -1,0 +1,86 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">編集</ui:define>
+
+    <ui:define name="viewname">編集</ui:define>
+
+    <ui:define name="head">
+
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="p-grid ui-fluid">
+            <div class="p-col-12 p-md-12">
+                <div class="card">
+                    <div class="p-grid">
+                        <div class="p-col-2">
+                            <div class="card grid-item">宛先</div>
+                        </div>
+                        <div class="p-col-4">
+                            <p:selectOneMenu>
+                                <f:selectItem itemLabel="" itemValue="" />
+                                <f:selectItem itemLabel="アクワイアラー" itemValue="1" />
+                                <f:selectItem itemLabel="イシュア" itemValue="2" />
+                                <f:selectItem itemLabel="ベンダー" itemValue="3" />
+                                <f:selectItem itemLabel="Onus加盟店" itemValue="4" />
+                            </p:selectOneMenu>
+                        </div>
+                        <div class="p-col-1">
+                            <p:button value="検索" />
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h:form id="formemail">
+                        <div class="p-grid ">
+                            <div class="p-col-12">
+                                <div class="card">
+                                    <p:dataTable widgetVar="customersDT2" var="customer" value="#{dataTableDemoView.customers2}" selectionMode="single" reflow="true"
+                                                 selection="#{dataTableDemoView.selectedCustomer}" rowKey="#{customer.id}" scrollable="true" scrollHeight="500"
+                                                 styleClass="ui-datatable-striped ui-datatable-sm ui-datatable-gridlines">
+                                        <f:facet name="header">
+                                            <div class="customers-table-header">
+                                                <span style="font-weight: bold">CUSTOMERS</span>
+
+                                                <span class="ui-input-icon-left filter-container">
+                                        <i class="pi pi-search"/>
+                                        <p:inputText id="globalFilter" onkeyup="PF('customersDT2').filter()" placeholder="Search"/>
+                                    </span>
+                                            </div>
+                                        </f:facet>
+                                        <p:column headerText="Name" sortBy="#{customer.name}" filterBy="#{customer.name}">
+                                            <h:outputText value="#{customer.name}" />
+                                        </p:column>
+                                        <p:column headerText="Country" sortBy="#{customer.country.name}" filterBy="#{customer.country.name}">
+                                            <span class="flag flag-#{customer.country.code}" style="width: 30px; height: 20px"/>
+                                            <h:outputText style="vertical-align: middle; margin-left: .5rem" value="#{customer.country.name}" />
+                                        </p:column>
+                                        <p:column headerText="Representative" sortBy="#{customer.representative.name}" filterBy="#{customer.representative.name}">
+                                            <p:graphicImage name="images/avatar/#{customer.representative.image}" library="demo" width="32" style="vertical-align: middle" />
+                                            <h:outputText style="vertical-align: middle; margin-left: .5rem" value="#{customer.representative.name}" />
+                                        </p:column>
+                                        <p:column headerText="Join Date" sortBy="#{customer.date}" filterBy="#{customer.date}">
+                                            <h:outputText value="#{customer.date}" />
+                                        </p:column>
+                                        <p:column headerText="Status" sortBy="#{customer.status}" filterBy="#{customer.status}">
+                                            <span class="customer-badge status-#{customer.status.name().toLowerCase()}">#{customer.status}</span>
+                                        </p:column>
+                                        <p:column headerText="Activity" sortBy="#{customer.activity}">
+                                            <p:progressBar value="#{customer.activity}" displayOnly="true" style="height: .5rem"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>
