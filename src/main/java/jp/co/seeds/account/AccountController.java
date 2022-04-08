@@ -24,6 +24,10 @@ public class AccountController {
         return "login";
     }
 
+    @GetMapping("/index")
+    String index(){
+        return "index";
+    }
 
     @GetMapping(value = "/doLogin")
     public String doLogin(String username , String password, Model model){
