@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 
 
 
@@ -7,7 +7,7 @@ server:
 # Mysql８以上の場合、urlの設定には下記属性設定する必要
 spring:
   datasource:
-    url: jdbc:mysql://localhost:33022226/emailsending?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
+    url: jdbc:mysql://localhost:3306/emailsending?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
     username: root
     password: uid007163
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -15,6 +15,9 @@ spring:
     hiddenmethod-filter-enabled: true
 
 mybatis:
-  mapper-locations: classpath:mybatis/mapper/*.xml
+  mapper-locations: classpath:resources/mybatis/mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
+
+
+

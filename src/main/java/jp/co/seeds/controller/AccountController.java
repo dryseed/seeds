@@ -1,4 +1,4 @@
-package jp.co.seeds.account;
+package jp.co.seeds.controller;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;

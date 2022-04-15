@@ -1,22 +1,11 @@
 package jp.co.seeds;
 
-import com.sun.faces.config.ConfigureListener;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ImportResource;
-import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-
-import javax.faces.webapp.FacesServlet;
-import javax.servlet.ServletContext;
-import java.util.Arrays;
-
-
 
 @SpringBootApplication
+@MapperScan("jp.co.seeds.mapper")
 public class SeedsApplication {
 
     public static void main(String[] args) {

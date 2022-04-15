@@ -24,7 +24,7 @@
                         </div>
                         <div class="p-col-4">
                             <p:selectOneMenu value="#{sendView.workType}">
-                                <f:selectItem itemLabel="Select One" itemValue=""/>
+                                <f:selectItem itemLabel="カスタマイズ発信" itemValue=""/>
                                 <f:selectItems value="#{sendView.workTypes}"/>
                                 <p:ajax listener="#{sendView.onItemSelect}" event="change" process="@this" update="targetSelectACQ"/>
                             </p:selectOneMenu>
@@ -46,28 +46,45 @@
                             <div class="card grid-item">イシュア</div>
                         </div>
                         <div class="p-col-4">
-                            <p:selectCheckboxMenu label="未選択" filter="true" filterMatchMode="startsWith">
-                                <f:selectItem itemLabel="PayPay" itemValue="1" />
-                                <f:selectItem itemLabel="メルペイ" itemValue="2" />
-                                <f:selectItem itemLabel="楽天ペイ" itemValue="3" />
+                            <p:selectCheckboxMenu label="未選択" filter="true" multiple="true" filterMatchMode="startsWith"
+                                                    value="#{sendView.selectedIssuer}">
+                                <f:selectItems value="#{sendView.issuerList}"/>
                             </p:selectCheckboxMenu>
                         </div>
                         <div class="p-col-2">
-                            <div class="card grid-item">OnUs加盟店</div>
+                            <div class="card grid-item">包括</div>
                         </div>
                         <div class="p-col-4">
-                            <p:selectCheckboxMenu label="未選択" filter="true" filterMatchMode="startsWith">
-                                <f:selectItem itemLabel="藤田観光" itemValue="1" />
+                            <p:selectCheckboxMenu label="未選択" filter="true" multiple="true" filterMatchMode="startsWith"
+                                                    value="#{sendView.selectedInclude}">
+                                <f:selectItems value="#{sendView.includeList}"/>
                             </p:selectCheckboxMenu>
                         </div>
                         <div class="p-col-2">
                             <div class="card grid-item">ベンダー</div>
                         </div>
                         <div class="p-col-4">
-                            <p:selectCheckboxMenu label="未選択" filter="true" filterMatchMode="startsWith">
-                                <f:selectItem itemLabel="ベガス" itemValue="1" />
-                                <f:selectItem itemLabel="精工" itemValue="2" />
-                                <f:selectItem itemLabel="GMO" itemValue="3" />
+                            <p:selectCheckboxMenu label="未選択" filter="true" multiple="true" filterMatchMode="startsWith"
+                                                    value="#{sendView.selectedVendor}">
+                                <f:selectItems value="#{sendView.vendorList}"/>
+                            </p:selectCheckboxMenu>
+                        </div>
+                        <div class="p-col-2">
+                            <div class="card grid-item">OnUs加盟店</div>
+                        </div>
+                        <div class="p-col-4">
+                            <p:selectCheckboxMenu label="未選択" filter="true" multiple="true" filterMatchMode="startsWith"
+                                                    value="#{sendView.selectedMerchant}">
+                                <f:selectItems value="#{sendView.merchantList}"/>
+                            </p:selectCheckboxMenu>
+                        </div>
+                        <div class="p-col-2">
+                            <div class="card grid-item">その他</div>
+                        </div>
+                        <div class="p-col-4">
+                            <p:selectCheckboxMenu label="未選択" filter="true" multiple="true" filterMatchMode="startsWith"
+                                                    value="#{sendView.selectedOthers}">
+                                <f:selectItems value="#{sendView.othersList}"/>
                             </p:selectCheckboxMenu>
                         </div>
                     </div>
