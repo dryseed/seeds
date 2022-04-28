@@ -6,7 +6,7 @@ import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import sun.awt.util.IdentityLinkedList;
+
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -47,8 +47,9 @@ public class SendView {
     private String[] selectedOthers;
     private List<String> othersList;
 
-    private List<String> agentListSelected;
+
     private List<AgentReport> agentList;
+    private List<AgentReport> agentListSelected = new ArrayList<>();
 
     @Resource
     private AgentReportService agentReportService;
@@ -107,7 +108,7 @@ public class SendView {
     }
 
     public void onItemSelect(){
-        logger.info("==========SendView:onItemSelect===========");
+        logger.info("==========SendView:agentList size="+agentListSelected.size());
         String[] testacqs = {"オリックス","オリコ"};
         setSelectedAcq(testacqs);
     }

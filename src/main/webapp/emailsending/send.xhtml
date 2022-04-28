@@ -38,10 +38,13 @@
                         </div>
                         <div class="p-col-4">
                             <p:selectCheckboxMenu  id="targetSelectACQ" label="未選択" multiple="true" filter="true" filterMatchMode="startsWith"
-                                                   value="#{sendView.selectedAcq}">
-                                <f:selectItems value="#{sendView.acqList}"/>
+                                                   value="#{sendView.agentListSelected}" converter="#{agentConverter}">
+                                <f:selectItems value="#{sendView.agentList}" var ="agent" itemLabel="#{agent.name}" itemValue="#{agent}"/>
                             </p:selectCheckboxMenu>
                         </div>
+
+
+
                         <div class="p-col-2">
                             <div class="card grid-item">イシュア</div>
                         </div>

@@ -1,9 +1,6 @@
 server:
   port: 8081
 
-
-
-
 # Mysql８以上の場合、urlの設定には下記属性設定する必要
 spring:
   datasource:
@@ -14,10 +11,10 @@ spring:
   mvc:
     hiddenmethod-filter-enabled: true
 
+
 mybatis:
   mapper-locations: classpath:resources/mybatis/mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
-
 
 

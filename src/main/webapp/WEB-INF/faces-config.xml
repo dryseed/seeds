@@ -9,6 +9,7 @@
         <component-type>org.primefaces.component.CaliforniaMenu</component-type>
         <component-class>org.primefaces.california.component.CaliforniaMenu</component-class>
     </component>
+
     
     <render-kit>
         <renderer>
