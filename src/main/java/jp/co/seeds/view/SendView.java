@@ -28,89 +28,124 @@ public class SendView {
 
     private String workType ;
     private Map<String, String> workTypes = new HashMap<>();
-
-    private String[] selectedAcq;
-    private List<String> acqList;
-
-    private String[] selectedIssuer;
-    private List<String> issuerList;
-
-    private String[] selectedInclude;
-    private List<String> includeList;
-
-    private String[] selectedVendor;
-    private List<String> vendorList;
-
-    private String[] selectedMerchant;
-    private List<String> merchantList;
-
-    private String[] selectedOthers;
-    private List<String> othersList;
-
-
+    private List<AgentReport> selectedIssuer;
+    private List<AgentReport> issuerList;
+    private List<AgentReport> selectedInclude;
+    private List<AgentReport> includeList;
+    private List<AgentReport> selectedVendor;
+    private List<AgentReport> vendorList;
+    private List<AgentReport> selectedMerchant;
+    private List<AgentReport> merchantList;
+    private List<AgentReport> selectedOthers;
+    private List<AgentReport>  othersList;
     private List<AgentReport> agentList;
-    private List<AgentReport> agentListSelected = new ArrayList<>();
+    private List<AgentReport> agentListSelected ;
+    private List<AgentReport> listAgentReport;
 
     @Resource
     private AgentReportService agentReportService;
 
     @PostConstruct
     public void init() {
+        issuerList = new ArrayList<>();
+        includeList=new ArrayList<>();
+        vendorList = new ArrayList<>();
+        merchantList = new ArrayList<>();
+        othersList = new ArrayList<>();
+        agentList = new ArrayList<>();
+        listAgentReport = agentReportService.list();
 
-        logger.info("==========SendView:init===========");
         workTypes = new HashMap<>();
         workTypes.put("OnePay障害", "bugInfo");
         workTypes.put( "SFTP遅延","delayInfo");
         workTypes.put("定期メンテナンス","maintenanceInfo");
         workTypes.put("OnePay案内","information");
 
-        acqList = new ArrayList<>();
-        issuerList = new ArrayList<>();
-        includeList=new ArrayList<>();
-        vendorList = new ArrayList<>();
-        merchantList = new ArrayList<>();
-        othersList = new ArrayList<>();
-        agentList = new ArrayList<AgentReport>();
-
-
-        List<AgentReport> listAgentReport = agentReportService.list();
         if(listAgentReport==null || listAgentReport.size() == 0) {
             logger.info("sendviewPage:データの取得処理が失敗しました");;
         }else {
             for(AgentReport ag : listAgentReport){
                 if(ag.getAgentType()!=null&&ag.getAgentType().equals("01")){
-                    acqList.add(ag.getShortName());
                     agentList.add(ag);
                 }
                 if(ag.getAgentType()!=null&&ag.getAgentType().equals("02")){
-                    issuerList.add(ag.getShortName());
+                    issuerList.add(ag);
                 }
                 if(ag.getAgentType()!=null&&ag.getAgentType().equals("03")){
-                    includeList.add(ag.getShortName());
+                    includeList.add(ag);
                 }
                 if(ag.getAgentType()!=null&&ag.getAgentType().equals("04")){
-                    vendorList.add(ag.getShortName());
+                    vendorList.add(ag);
                 }
                 if(ag.getAgentType()!=null&&ag.getAgentType().equals("05")){
-                    merchantList.add(ag.getShortName());
+                    merchantList.add(ag);
                 }
                 if(ag.getAgentType()!=null&&ag.getAgentType().equals("09")){
-                    othersList.add(ag.getShortName());
+                    othersList.add(ag);
                 }
             }
         }
 
-
-
-
-
-
     }
 
     public void onItemSelect(){
-        logger.info("==========SendView:agentList size="+agentListSelected.size());
-        String[] testacqs = {"オリックス","オリコ"};
-        setSelectedAcq(testacqs);
+        logger.info("==========SendView:agentList =");
+        agentListSelected= new ArrayList<>();
+        selectedIssuer = new ArrayList<>();
+        selectedInclude = new ArrayList<>();
+        selectedVendor = new ArrayList<>();
+        selectedMerchant = new ArrayList<>();
+        selectedOthers = new ArrayList<>();
+
+        if("delayInfo".equals(workType)){
+            for(AgentReport ag : listAgentReport){
+                if(ag.getAgentType()!=null&&ag.getAgentType().equals("01")){
+                    agentListSelected.add(ag);
+                }
+                if(ag.getAgentType()!=null&&ag.getAgentType().equals("02")){
+                    selectedIssuer.add(ag);
+                }
+            }
+        }
+        else if("bugInfo".equals(workType)){
+            for(AgentReport ag : listAgentReport){
+                if(ag.getAgentType()!=null&&ag.getAgentType().equals("03")){
+                    selectedInclude.add(ag);
+                }
+            }
+        }
+        else if("maintenanceInfo".equals(workType)){
+            for(AgentReport ag : listAgentReport){
+                if(ag.getAgentType()!=null&&ag.getAgentType().equals("04")){
+                    selectedVendor.add(ag);
+                }
+            }
+        }
+        else if("information".equals(workType)){
+            for(AgentReport ag : listAgentReport){
+                if(ag.getAgentType()!=null&&ag.getAgentType().equals("05")){
+                    selectedMerchant.add(ag);
+                }
+            }
+        }
+
     }
 
+    public  void searchTarget(){
+        logger.info("==========SendView:searchTarget =");
+        int size = agentListSelected.size();
+        int size2 = selectedInclude.size();
+        int size1 = selectedIssuer.size();
+        int size3 = selectedVendor.size();
+        logger.info("==========SendView:agentList size="+size);
+    }
+
+    public void conditionReset(){
+        selectedIssuer = null;
+        selectedInclude = null;
+        selectedVendor = null;
+        selectedMerchant = null;
+        selectedOthers = null;
+        agentListSelected=null;
+    }
 }

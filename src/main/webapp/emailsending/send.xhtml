@@ -24,21 +24,22 @@
                         </div>
                         <div class="p-col-4">
                             <p:selectOneMenu value="#{sendView.workType}">
-                                <f:selectItem itemLabel="カスタマイズ発信" itemValue=""/>
+                                <f:selectItem itemLabel="カスタマイズ発信" itemValue="cust"/>
                                 <f:selectItems value="#{sendView.workTypes}"/>
-                                <p:ajax listener="#{sendView.onItemSelect}" event="change" process="@this" update="targetSelectACQ"/>
+                                <p:ajax listener="#{sendView.onItemSelect}" event="change" process="@this" update="targetSelectACQ targetSelectIssuer targetSelectInclude"/>
                             </p:selectOneMenu>
                         </div>
                     </div>
                 </div>
                 <div class="card" >
+
                     <div class="p-grid" >
                         <div class="p-col-2">
                             <div class="card grid-item">アクワイアラー</div>
                         </div>
                         <div class="p-col-4">
                             <p:selectCheckboxMenu  id="targetSelectACQ" label="未選択" multiple="true" filter="true" filterMatchMode="startsWith"
-                                                   value="#{sendView.agentListSelected}" converter="#{agentConverter}">
+                                                   value="#{sendView.agentListSelected}" >
                                 <f:selectItems value="#{sendView.agentList}" var ="agent" itemLabel="#{agent.name}" itemValue="#{agent}"/>
                             </p:selectCheckboxMenu>
                         </div>
@@ -49,36 +50,36 @@
                             <div class="card grid-item">イシュア</div>
                         </div>
                         <div class="p-col-4">
-                            <p:selectCheckboxMenu label="未選択" filter="true" multiple="true" filterMatchMode="startsWith"
+                            <p:selectCheckboxMenu id ="targetSelectIssuer" label="未選択" filter="true" multiple="true" filterMatchMode="startsWith"
                                                     value="#{sendView.selectedIssuer}">
-                                <f:selectItems value="#{sendView.issuerList}"/>
+                                <f:selectItems value="#{sendView.issuerList}" var ="issuer" itemLabel="#{issuer.name}" itemValue="#{issuer}"/>
                             </p:selectCheckboxMenu>
                         </div>
                         <div class="p-col-2">
                             <div class="card grid-item">包括</div>
                         </div>
                         <div class="p-col-4">
-                            <p:selectCheckboxMenu label="未選択" filter="true" multiple="true" filterMatchMode="startsWith"
+                            <p:selectCheckboxMenu id ="targetSelectInclude" label="未選択" filter="true" multiple="true" filterMatchMode="startsWith"
                                                     value="#{sendView.selectedInclude}">
-                                <f:selectItems value="#{sendView.includeList}"/>
+                                <f:selectItems value="#{sendView.includeList}"  var ="includes" itemLabel="#{includes.name}" itemValue="#{includes}"/>
                             </p:selectCheckboxMenu>
                         </div>
                         <div class="p-col-2">
                             <div class="card grid-item">ベンダー</div>
                         </div>
                         <div class="p-col-4">
-                            <p:selectCheckboxMenu label="未選択" filter="true" multiple="true" filterMatchMode="startsWith"
+                            <p:selectCheckboxMenu id ="targetSelectVendor" label="未選択" filter="true" multiple="true" filterMatchMode="startsWith"
                                                     value="#{sendView.selectedVendor}">
-                                <f:selectItems value="#{sendView.vendorList}"/>
+                                <f:selectItems value="#{sendView.vendorList}" var ="vendor" itemLabel="#{vendor.name}" itemValue="#{vendor}"/>
                             </p:selectCheckboxMenu>
                         </div>
                         <div class="p-col-2">
                             <div class="card grid-item">OnUs加盟店</div>
                         </div>
                         <div class="p-col-4">
-                            <p:selectCheckboxMenu label="未選択" filter="true" multiple="true" filterMatchMode="startsWith"
+                            <p:selectCheckboxMenu id ="targetSelectMerchant" label="未選択" filter="true" multiple="true" filterMatchMode="startsWith"
                                                     value="#{sendView.selectedMerchant}">
-                                <f:selectItems value="#{sendView.merchantList}"/>
+                                <f:selectItems value="#{sendView.merchantList}" var ="merchant" itemLabel="#{merchant.name}" itemValue="#{merchant}"/>
                             </p:selectCheckboxMenu>
                         </div>
                         <div class="p-col-2">
@@ -87,17 +88,18 @@
                         <div class="p-col-4">
                             <p:selectCheckboxMenu label="未選択" filter="true" multiple="true" filterMatchMode="startsWith"
                                                     value="#{sendView.selectedOthers}">
-                                <f:selectItems value="#{sendView.othersList}"/>
+                                <f:selectItems value="#{sendView.othersList}" var ="ohters" itemLabel="#{ohters.name}" itemValue="#{ohters}"/>
                             </p:selectCheckboxMenu>
                         </div>
                     </div>
 
+
                     <div class="p-grid p-justify-end">
                         <div class="p-col-1">
-                            <p:button value="クリア" />
+                            <p:commandButton value="クリア" action="#{sendView.conditionReset}" update="actionType"/>
                         </div>
                         <div class="p-col-1">
-                            <p:button value="検索" />
+                            <p:commandButton value="検索" action="#{sendView.searchTarget}" update="actionType"/>
                         </div>
                     </div>
 

@@ -19,7 +19,7 @@
             <result property="cooperationAgent" column="cooperation_agent" jdbcType="VARCHAR"/>
             <result property="cooperationMerchant" column="cooperation_merchant" jdbcType="VARCHAR"/>
             <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
-            <result property="delete" column="delete" jdbcType="INTEGER"/>
+            <result property="deleteFlg" column="delete_flg" jdbcType="INTEGER"/>
             <result property="operator" column="operator" jdbcType="VARCHAR"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
@@ -30,7 +30,7 @@
         short_name,name_kana,agent_type,
         partment,VIP,connect_type,
         pay_type,access_sftp_time,cooperation_agent,
-        cooperation_merchant,remarks,delete,
+        cooperation_merchant,remarks,delete_flg,
         operator,create_time,update_time
     </sql>
 </mapper>

@@ -125,8 +125,8 @@
 <!--                </includes>-->
 <!--            </resource>-->
             <resource>
-                <directory>src/main/resources</directory>
-                <targetPath>resources</targetPath>
+                <directory>${basedir}/src/main/resources</directory>
+<!--                <targetPath>resources</targetPath>-->
                 <includes>
                     <include>**/**</include>
                 </includes>
