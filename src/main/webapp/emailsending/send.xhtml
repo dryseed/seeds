@@ -1,3 +1,4 @@
+
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
@@ -14,156 +15,111 @@
     </ui:define>
 
     <ui:define name="content">
-        <h:form id="actionType">
+
+        <h:form id="conditionChoice">
         <div class="p-grid ui-fluid">
             <div class="p-col-12 p-md-12">
-                <div class="card" >
-                    <div class="p-grid">
-                        <div class="p-col-2">
-                            <div class="card grid-item">発信種類</div>
-                        </div>
-                        <div class="p-col-4">
-                            <p:selectOneMenu value="#{sendView.workType}">
-                                <f:selectItem itemLabel="カスタマイズ発信" itemValue="cust"/>
-                                <f:selectItems value="#{sendView.workTypes}"/>
-                                <p:ajax listener="#{sendView.onItemSelect}" event="change" process="@this" update="targetSelectACQ targetSelectIssuer targetSelectInclude"/>
-                            </p:selectOneMenu>
-                        </div>
-                    </div>
-                </div>
-                <div class="card" >
+                <p:panel header="対象選択">
+                    <p:panelGrid columns="4"
+                                 columnClasses="ui-grid-col-1,ui-grid-col-5,ui-grid-col-1,ui-grid-col-5"
+                                 layout="grid"
+                                 styleClass="ui-panelgrid-blank ui-fluid">
+                        <h:outputLabel  for="field00" value="発信種類" />
+                        <p:selectOneMenu id="field00" value="#{sendView.workType}">
+                            <f:selectItem itemLabel="カスタマイズ発信" itemValue="cust"/>
+                            <f:selectItems value="#{sendView.workTypes}"/>
+                            <p:ajax listener="#{sendView.onItemSelect}" event="change" process="@this" update="conditionChoice msgSendArea"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
 
-                    <div class="p-grid" >
-                        <div class="p-col-2">
-                            <div class="card grid-item">アクワイアラー</div>
-                        </div>
-                        <div class="p-col-4">
-                            <p:selectCheckboxMenu  id="targetSelectACQ" label="未選択" multiple="true" filter="true" filterMatchMode="startsWith"
-                                                   value="#{sendView.agentListSelected}" >
-                                <f:selectItems value="#{sendView.agentList}" var ="agent" itemLabel="#{agent.name}" itemValue="#{agent}"/>
-                            </p:selectCheckboxMenu>
-                        </div>
+                    <p:panelGrid columns="4"
+                                 columnClasses="ui-grid-col-1,ui-grid-col-5,ui-grid-col-1,ui-grid-col-5"
+                                 layout="grid"
+                                 styleClass="ui-panelgrid-blank ui-fluid"
+                                 style="border:0px none; background-color:transparent;"
+                                 rendered="#{sendView.showCustomerConditionFlg}">
+                        <h:outputLabel  for="field01" value="アクワイアラー" />
+                        <p:selectCheckboxMenu  id="field01" label="未選択" multiple="true" filter="true" filterMatchMode="startsWith"
+                                               value="#{sendView.agentListSelected}" >
+                            <f:selectItems value="#{sendView.agentList}" var ="agent" itemLabel="#{agent.name}" itemValue="#{agent}"/>
+                        </p:selectCheckboxMenu>
+                        <h:outputLabel for="field02" value="イシュア" />
+                        <p:selectCheckboxMenu id ="field02" label="未選択" filter="true" multiple="true" filterMatchMode="startsWith"
+                                              value="#{sendView.selectedIssuer}">
+                            <f:selectItems value="#{sendView.issuerList}" var ="issuer" itemLabel="#{issuer.name}" itemValue="#{issuer}"/>
+                        </p:selectCheckboxMenu>
 
-
-
-                        <div class="p-col-2">
-                            <div class="card grid-item">イシュア</div>
-                        </div>
-                        <div class="p-col-4">
-                            <p:selectCheckboxMenu id ="targetSelectIssuer" label="未選択" filter="true" multiple="true" filterMatchMode="startsWith"
-                                                    value="#{sendView.selectedIssuer}">
-                                <f:selectItems value="#{sendView.issuerList}" var ="issuer" itemLabel="#{issuer.name}" itemValue="#{issuer}"/>
-                            </p:selectCheckboxMenu>
-                        </div>
-                        <div class="p-col-2">
-                            <div class="card grid-item">包括</div>
-                        </div>
-                        <div class="p-col-4">
-                            <p:selectCheckboxMenu id ="targetSelectInclude" label="未選択" filter="true" multiple="true" filterMatchMode="startsWith"
-                                                    value="#{sendView.selectedInclude}">
-                                <f:selectItems value="#{sendView.includeList}"  var ="includes" itemLabel="#{includes.name}" itemValue="#{includes}"/>
-                            </p:selectCheckboxMenu>
-                        </div>
-                        <div class="p-col-2">
-                            <div class="card grid-item">ベンダー</div>
-                        </div>
-                        <div class="p-col-4">
-                            <p:selectCheckboxMenu id ="targetSelectVendor" label="未選択" filter="true" multiple="true" filterMatchMode="startsWith"
-                                                    value="#{sendView.selectedVendor}">
-                                <f:selectItems value="#{sendView.vendorList}" var ="vendor" itemLabel="#{vendor.name}" itemValue="#{vendor}"/>
-                            </p:selectCheckboxMenu>
-                        </div>
-                        <div class="p-col-2">
-                            <div class="card grid-item">OnUs加盟店</div>
-                        </div>
-                        <div class="p-col-4">
-                            <p:selectCheckboxMenu id ="targetSelectMerchant" label="未選択" filter="true" multiple="true" filterMatchMode="startsWith"
-                                                    value="#{sendView.selectedMerchant}">
-                                <f:selectItems value="#{sendView.merchantList}" var ="merchant" itemLabel="#{merchant.name}" itemValue="#{merchant}"/>
-                            </p:selectCheckboxMenu>
-                        </div>
-                        <div class="p-col-2">
-                            <div class="card grid-item">その他</div>
-                        </div>
-                        <div class="p-col-4">
-                            <p:selectCheckboxMenu label="未選択" filter="true" multiple="true" filterMatchMode="startsWith"
-                                                    value="#{sendView.selectedOthers}">
-                                <f:selectItems value="#{sendView.othersList}" var ="ohters" itemLabel="#{ohters.name}" itemValue="#{ohters}"/>
-                            </p:selectCheckboxMenu>
-                        </div>
-                    </div>
+                        <h:outputLabel for="field03" value="包括" />
+                        <p:selectCheckboxMenu id ="field03" label="未選択" filter="true" multiple="true" filterMatchMode="startsWith"
+                                              value="#{sendView.selectedInclude}">
+                            <f:selectItems value="#{sendView.includeList}"  var ="includes" itemLabel="#{includes.name}" itemValue="#{includes}"/>
+                        </p:selectCheckboxMenu>
+                        <h:outputLabel for="field04" value="ベンダー" />
+                        <p:selectCheckboxMenu id ="field04" label="未選択" filter="true" multiple="true" filterMatchMode="startsWith"
+                                              value="#{sendView.selectedVendor}">
+                            <f:selectItems value="#{sendView.vendorList}" var ="vendor" itemLabel="#{vendor.name}" itemValue="#{vendor}"/>
+                        </p:selectCheckboxMenu>
 
 
-                    <div class="p-grid p-justify-end">
-                        <div class="p-col-1">
-                            <p:commandButton value="クリア" action="#{sendView.conditionReset}" update="actionType"/>
-                        </div>
-                        <div class="p-col-1">
-                            <p:commandButton value="検索" action="#{sendView.searchTarget}" update="actionType"/>
-                        </div>
-                    </div>
+                        <h:outputLabel for="field05" value="加盟店" />
+                        <p:selectCheckboxMenu id ="field05" label="未選択" filter="true" multiple="true" filterMatchMode="startsWith"
+                                              value="#{sendView.selectedMerchant}">
+                            <f:selectItems value="#{sendView.merchantList}" var ="merchant" itemLabel="#{merchant.name}" itemValue="#{merchant}"/>
+                        </p:selectCheckboxMenu>
+                        <h:outputLabel for="field06" value="その他" />
+                        <p:selectCheckboxMenu  id ="field06"  label="未選択" filter="true" multiple="true" filterMatchMode="startsWith"
+                                               value="#{sendView.selectedOthers}">
+                            <f:selectItems value="#{sendView.othersList}" var ="ohters" itemLabel="#{ohters.name}" itemValue="#{ohters}"/>
+                        </p:selectCheckboxMenu>
+                    </p:panelGrid>
 
-                </div>
+                    <p:panelGrid columns="4"
+                                 columnClasses="ui-grid-col-1,ui-grid-col-5,ui-grid-col-1,ui-grid-col-5"
+                                 layout="grid"
+                                 styleClass="ui-panelgrid-blank ui-fluid"
+                                 style="border:0px none; background-color:transparent;"
+                                 rendered="#{sendView.showFixConditionFlg}">
+                        <h:outputLabel for="field07" value="発信内容選択" />
+                        <p:selectOneMenu  id ="field07" value="#{sendView.sendCategoriesChoice}">
+                            <f:selectItems value="#{sendView.sendContentCategories}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
 
-                <div class="card">
+                    <p:panelGrid columns="4"
+                                 columnClasses="ui-grid-col-5,ui-grid-col-5,ui-grid-col-1,ui-grid-col-1"
+                                 layout="grid"
+                                 styleClass="ui-panelgrid-blank ui-fluid"
+                                 style="border:0px none; background-color:transparent;">
+                        <p:column ></p:column>
+                        <p:column ></p:column>
+                        <p:column >
+                            <p:commandButton   value="クリア" action="#{sendView.conditionReset}" update="conditionChoice msgSendArea"/>
+                        </p:column>
+                        <p:column >
+                            <p:commandButton value="検索" action="#{sendView.searchTarget}" update="msgSendArea"/>
+                        </p:column>
+                    </p:panelGrid>
 
-                        <div class="p-grid ">
-                            <div class="p-col-12">
-                                <div class="card">
-                                    <p:dataTable widgetVar="customersDT2" var="customer" value="#{dataTableDemoView.customers2}" selectionMode="single" reflow="true"
-                                                 selection="#{dataTableDemoView.selectedCustomer}" rowKey="#{customer.id}" scrollable="true" scrollHeight="500"
-                                                 styleClass="ui-datatable-striped ui-datatable-sm ui-datatable-gridlines">
-                                        <f:facet name="header">
-                                            <div class="customers-table-header">
-                                                <span style="font-weight: bold">CUSTOMERS</span>
 
-                                                <span class="ui-input-icon-left filter-container">
-                                        <i class="pi pi-search"/>
-                                        <p:inputText id="globalFilter" onkeyup="PF('customersDT2').filter()" placeholder="Search"/>
-                                    </span>
-                                            </div>
-                                        </f:facet>
-                                        <p:column headerText="Name" sortBy="#{customer.name}" filterBy="#{customer.name}">
-                                            <h:outputText value="#{customer.name}" />
-                                        </p:column>
-                                        <p:column headerText="Country" sortBy="#{customer.country.name}" filterBy="#{customer.country.name}">
-                                            <span class="flag flag-#{customer.country.code}" style="width: 30px; height: 20px"/>
-                                            <h:outputText style="vertical-align: middle; margin-left: .5rem" value="#{customer.country.name}" />
-                                        </p:column>
-                                        <p:column headerText="Representative" sortBy="#{customer.representative.name}" filterBy="#{customer.representative.name}">
-                                            <p:graphicImage name="images/avatar/#{customer.representative.image}" library="demo" width="32" style="vertical-align: middle" />
-                                            <h:outputText style="vertical-align: middle; margin-left: .5rem" value="#{customer.representative.name}" />
-                                        </p:column>
-                                        <p:column headerText="Join Date" sortBy="#{customer.date}" filterBy="#{customer.date}">
-                                            <h:outputText value="#{customer.date}" />
-                                        </p:column>
-                                        <p:column headerText="Status" sortBy="#{customer.status}" filterBy="#{customer.status}">
-                                            <span class="customer-badge status-#{customer.status.name().toLowerCase()}">#{customer.status}</span>
-                                        </p:column>
-                                        <p:column headerText="Activity" sortBy="#{customer.activity}">
-                                            <p:progressBar value="#{customer.activity}" displayOnly="true" style="height: .5rem"/>
-                                        </p:column>
-                                    </p:dataTable>
-                                </div>
-                            </div>
-                        </div>
+                </p:panel>
 
-                </div>
-                <div class="card">
-                    <div class="p-col-12">
-                        <h5>発信内容</h5>
-                        <p:inputTextarea rows="30" placeholder="Your message" />
-                    </div>
-
-                    <div class="p-grid p-justify-center">
-                        <div class="p-col-2">
-                            <p:button value="送信" />
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+              </div>
         </div>
+        </h:form>
+        <h:form id="msgSendArea" >
+            <div class="p-grid ui-fluid">
+                <div class="p-col-12 p-md-12">
+                    <p:panel header="発信内容" rendered="#{sendView.showMsgSendAreaFlg}" >
+                    <p:panelGrid columns="1" layout="grid" >
+                        <h:outputText value="発信宛先"/>
+                        <p:inputTextarea rows="5" placeholder="宛先リスト" />
+                        <h:outputText value="発信内容"/>
+                        <p:inputTextarea rows="30" placeholder="Your message" />
+                        <p:button value="送信" />
+                    </p:panelGrid>
+                    </p:panel>
+                </div>
+            </div>
         </h:form>
     </ui:define>
 

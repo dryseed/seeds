@@ -26,8 +26,14 @@ public class SendView {
 
     Logger logger = LoggerFactory.getLogger(getClass());
 
+    private boolean showCustomerConditionFlg;
+    private boolean showFixConditionFlg;
+    private boolean showMsgSendAreaFlg;
+
     private String workType ;
+    private String sendCategoriesChoice;
     private Map<String, String> workTypes = new HashMap<>();
+    private Map<String, String> sendContentCategories = new HashMap<>();
     private List<AgentReport> selectedIssuer;
     private List<AgentReport> issuerList;
     private List<AgentReport> selectedInclude;
@@ -47,6 +53,10 @@ public class SendView {
 
     @PostConstruct
     public void init() {
+        showCustomerConditionFlg = true;
+        showFixConditionFlg = false;
+        showMsgSendAreaFlg = false;
+
         issuerList = new ArrayList<>();
         includeList=new ArrayList<>();
         vendorList = new ArrayList<>();
@@ -60,6 +70,10 @@ public class SendView {
         workTypes.put( "SFTP遅延","delayInfo");
         workTypes.put("定期メンテナンス","maintenanceInfo");
         workTypes.put("OnePay案内","information");
+
+        sendContentCategories = new HashMap<>();
+        sendContentCategories.put("初回通知", "firstMsgInfo");
+        sendContentCategories.put( "リカバリー完了通知","endMsgInfo");
 
         if(listAgentReport==null || listAgentReport.size() == 0) {
             logger.info("sendviewPage:データの取得処理が失敗しました");;
@@ -97,6 +111,10 @@ public class SendView {
         selectedMerchant = new ArrayList<>();
         selectedOthers = new ArrayList<>();
 
+        showCustomerConditionFlg = false;
+        showFixConditionFlg = true;
+        showMsgSendAreaFlg = false;
+
         if("delayInfo".equals(workType)){
             for(AgentReport ag : listAgentReport){
                 if(ag.getAgentType()!=null&&ag.getAgentType().equals("01")){
@@ -128,16 +146,17 @@ public class SendView {
                 }
             }
         }
+        else{
+            showCustomerConditionFlg = true;
+            showFixConditionFlg = false;
+        }
 
     }
 
     public  void searchTarget(){
         logger.info("==========SendView:searchTarget =");
-        int size = agentListSelected.size();
-        int size2 = selectedInclude.size();
-        int size1 = selectedIssuer.size();
-        int size3 = selectedVendor.size();
-        logger.info("==========SendView:agentList size="+size);
+
+        showMsgSendAreaFlg= true;
     }
 
     public void conditionReset(){
@@ -147,5 +166,6 @@ public class SendView {
         selectedMerchant = null;
         selectedOthers = null;
         agentListSelected=null;
+        showMsgSendAreaFlg = false;
     }
 }
